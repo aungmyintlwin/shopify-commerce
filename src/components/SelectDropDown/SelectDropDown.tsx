@@ -1,17 +1,35 @@
 //lib
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 //reuse
 import { useTheme } from 'react-native-paper';
 import { scaleHeight, scaleWidth } from '../../utils/responsive';
-import { Context } from '../../context/Provider';
 
 
-const SelectDropDown = ({
+type Props = {
+  enabled?: boolean,
+  placeholder?: string,
+  onValueChange: (value: any) => void,
+  selectedValue: undefined | any,
+  data: object[],
+  error?: string,
+  title?: string,
+  icon?: string,
+  selectedIcon?: string,
+  labelKey: string,
+  valueKey: string,
+  bgColor?: string,
+  required?: boolean,
+  showTitle?: boolean,
+  showDropdownBorder?: boolean,
+  dropdownColor?: string,
+  errorMsg?: string
+}
+
+const SelectDropDown:FC<Props> = ({
   enabled = false,
-  mode,
   placeholder,
   onValueChange,
   selectedValue,
@@ -33,10 +51,10 @@ const SelectDropDown = ({
     const theme = useTheme();
     const styles = useThemeStyle(theme);
 
-  const renderItem = item => {
+  const renderItem = (item: any) => {
     return (
       <View style={styles.item}>
-        <Text style={styles.textItem}>{labelKey ? item[labelKey] : item.label}</Text>
+        <Text style={styles.textItem}>{labelKey ? item[labelKey] : item?.label}</Text>
         {item[valueKey] === selectedValue && (
           <MaterialCommunityIcons
             name={selectedIcon || 'checkbox-marked'}
@@ -71,10 +89,8 @@ const SelectDropDown = ({
           </View>
         }
         <Dropdown
-          // iconColor={theme.colors.primary}
           iconColor={'#AAAAAA'}
-          mode={mode}
-          // style={styles.dropdown}
+          mode='default'
           style={{
             ...styles.dropdown,
             backgroundColor: dropdownColor ? `${dropdownColor}` : `${theme.colors.background}`,
@@ -98,7 +114,7 @@ const SelectDropDown = ({
           renderItem={renderItem}
           renderLeftIcon={() => (
             <MaterialCommunityIcons
-              name={icon}
+              name={`${icon}`}
               size={scaleWidth(22)}
               style={{color: theme.colors.primary, marginRight: scaleWidth(10)}}
             />
@@ -112,16 +128,13 @@ const SelectDropDown = ({
 
 export default SelectDropDown;
 
-const useThemeStyle = (theme,lang) => StyleSheet.create({
+const useThemeStyle = (theme: any) => StyleSheet.create({
   dropdown: {
-    // margin: scaleHeight(3),
     height: scaleHeight(40),
     paddingHorizontal: scaleHeight(5),
-    // borderWidth: scaleWidth(1),
     borderColor: '#AAAAAA',
     borderRadius: scaleWidth(5),
     width:'100%',
-    // backgroundColor: '#E8E1ED'
   },
   dropdownItemTextStyle: {
     fontSize: scaleWidth(14),

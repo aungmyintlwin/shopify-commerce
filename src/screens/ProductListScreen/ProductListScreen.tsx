@@ -15,14 +15,14 @@ const ProductListScreen = (props: Props) => {
     const navigation = useNavigation<NavigationProp<ProductStackParamList>>();
     return (
         <>
-            <Header showLeftIcon={false} title={"Product List"}/>
+            <Header showLeftIcon={false} title={"Product List"} rightIconPress={() => navigation.navigate('CreateProductScreen')}/>
             <View style={styles.container}>
                 <Card style={styles.notiCard}>
                     <MaterialCommunityIcons name="clipboard-list-outline" color={theme.colors.secondary} size={scaleWidth(85)} />
                 </Card>
                 <Text style={styles.title}>First up: add your products</Text>
                 <Text style={styles.subTitle}>To start selling on Shopify , migrate your product or source new one</Text>
-                <Button style={styles.btnStyle} mode="contained">
+                <Button style={styles.btnStyle} mode="contained" onPress={() => navigation.navigate('CreateProductScreen')}>
                     Add new product
                 </Button>
             </View>

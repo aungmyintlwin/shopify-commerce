@@ -15,6 +15,7 @@ type Props = {
     leftIcon?: ReactNode,
     secureText?: boolean,
     rightIcon?: ReactNode,
+    inputStype?: {}
 }
 const CommonInput: FC<Props> = ({
     placeholder,
@@ -24,13 +25,14 @@ const CommonInput: FC<Props> = ({
     keyboard='default',
     leftIcon,
     secureText=false,
-    rightIcon
+    rightIcon,
+    inputStype
 }) => {
     const theme = useTheme();
     const styles = useThemeStyles(theme);
     return (
         <TextInput
-            style={styles.inputStyle}
+            style={{...styles.inputStyle,...inputStype}}
             mode='outlined'
             label={placeholder}
             editable={editable}
