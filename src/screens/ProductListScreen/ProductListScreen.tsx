@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native'
 import React, { memo } from 'react'
 import { Button, Card, useTheme } from 'react-native-paper'
 import { scaleHeight, scaleWidth } from '../../utils/responsive'
@@ -6,6 +6,8 @@ import { NavigationProp, useNavigation } from '@react-navigation/native'
 import Header from '../../components/Header/Header'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ProductStackParamList } from '../../navigation/ProductStack'
+import NoProductList from './NoProductList'
+import ProductListItem from './ProductListItem'
 
 type Props = {}
 
@@ -16,15 +18,73 @@ const ProductListScreen = (props: Props) => {
     return (
         <>
             <Header showLeftIcon={false} title={"Product List"} rightIconPress={() => navigation.navigate('CreateProductScreen')}/>
-            <View style={styles.container}>
-                <Card style={styles.notiCard}>
-                    <MaterialCommunityIcons name="clipboard-list-outline" color={theme.colors.secondary} size={scaleWidth(85)} />
-                </Card>
-                <Text style={styles.title}>First up: add your products</Text>
-                <Text style={styles.subTitle}>To start selling on Shopify , migrate your product or source new one</Text>
-                <Button style={styles.btnStyle} mode="contained" onPress={() => navigation.navigate('CreateProductScreen')}>
-                    Add new product
-                </Button>
+            {/* <NoProductList addNewProdcut={() => navigation.navigate('CreateProductScreen')} /> */}
+
+
+            <View style={styles.list}>
+                <View style={styles.sortWrapper}>
+                    <Card style={styles.sortItemCard}>
+                        <Text style={styles.sortItemText}>All</Text>
+                    </Card>
+                    <Card style={styles.sortItemCard}>
+                        <Text style={styles.sortItemText}>Title (A to Z)</Text>
+                    </Card>
+                    <Card style={styles.sortItemCard}>
+                        <Text style={styles.sortItemText}>Title (Z to A)</Text>
+                    </Card>
+                    <Card style={styles.sortItemCard}>
+                        <Text style={styles.sortItemText}>Price (min to max)</Text>
+                    </Card>
+                    <Card style={styles.sortItemCard}>
+                        <Text style={styles.sortItemText}>Price (max to min)</Text>
+                    </Card>
+                </View>
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    initialNumToRender={8}
+                    data={[
+                        {
+                            id: 1,
+                            title: 'Product One',
+                            price: 244,
+                            stock: 12,
+                            description: 'hello hello hello',
+                            category_id: 2,
+                            images: []
+                        },
+                        {
+                            id: 2,
+                            title: 'Product Two',
+                            price: 244,
+                            stock: 12,
+                            description: 'hello hello hello',
+                            category_id: 2,
+                            images: []
+                        },
+                        {
+                            id: 3,
+                            title: 'Product Three',
+                            price: 244,
+                            stock: 12,
+                            description: 'hello hello hello',
+                            category_id: 2,
+                            images: []
+                        },
+                        {
+                            id: 4,
+                            title: 'Product Four',
+                            price: 244,
+                            stock: 12,
+                            description: 'hello hello hello',
+                            category_id: 2,
+                            images: []
+                        },
+                    ]}
+                    renderItem={({item}) => (<ProductListItem product={item} />)}
+                    keyExtractor={(item: any,index) => `${item?.item?.id}-${index}`}
+                    ItemSeparatorComponent={() => <View style={{width: 'auto',height: scaleHeight(10)}}/>}
+                    ListFooterComponent={<View style={{width: 'auto',height: scaleHeight(45)}}/>}
+                />
             </View>
         </>
     )
@@ -33,38 +93,25 @@ const ProductListScreen = (props: Props) => {
 export default memo(ProductListScreen)
 
 const useThemeStyle = (theme: any) => StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: scaleWidth(20),
-        justifyContent: 'center',
-        alignItems: 'center'
+    list: {
+        marginTop: scaleHeight(10),
+        paddingHorizontal: scaleWidth(15)
     },
-    title: {
-        fontSize: scaleWidth(16),
-        lineHeight: scaleWidth(20),
-        fontWeight: 'bold',
-        marginTop: scaleHeight(15)
+    sortWrapper: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        marginVertical: scaleHeight(10),
+        flexWrap: 'wrap',
+        rowGap: scaleWidth(10),
+        columnGap: scaleWidth(10)
     },
-    subTitle: {
+    sortItemCard: {
+        padding: scaleWidth(10),
+        borderRadius: scaleWidth(5)
+    },
+    sortItemText: {
         fontSize: scaleWidth(12),
-        lineHeight: scaleWidth(18),
-        textAlign: 'center',
-        marginTop: scaleHeight(5)
+        textAlign: 'center'
     },
-    notiCard: {
-        paddingVertical: scaleWidth(5),
-        paddingHorizontal: scaleWidth(10),
-        borderRadius: scaleWidth(60),
-        width: scaleWidth(120),
-        height: scaleWidth(120),
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    btnStyle: {
-        marginTop: scaleHeight(22),
-        borderRadius: scaleWidth(10),
-        height: scaleHeight(35),
-        justifyContent: 'center',
-        width: '85%'
-    }
 })

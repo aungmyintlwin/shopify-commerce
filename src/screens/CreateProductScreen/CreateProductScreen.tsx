@@ -113,6 +113,8 @@ const CreateProductScreen = (props: Props) => {
     const styles = useThemeStyle(theme);
     const navigation = useNavigation<NavigationProp<ProductStackParamList>>();
 
+    const [price,setPrice] = useState<string>('')
+    const [stock,setStock] = useState<string>('')
     const [productTitle,setProductTitle] = useState<string>('')
     const [description,setDescription] = useState<string>('')
     const [selectedCategoryId,setSelectedCategoryId] = useState<number>()
@@ -134,6 +136,18 @@ const CreateProductScreen = (props: Props) => {
                             placeholder={'Product Title'}
                             value={productTitle}
                             onValueChange={(vale: string) => setProductTitle(vale)}
+                            
+                        />
+                        <CommonInput
+                            placeholder={'Price'}
+                            value={price}
+                            onValueChange={(vale: string) => setPrice(vale)}
+                            
+                        />
+                        <CommonInput
+                            placeholder={'Stock'}
+                            value={stock}
+                            onValueChange={(vale: string) => setStock(vale)}
                             
                         />
                         <CommonInput
