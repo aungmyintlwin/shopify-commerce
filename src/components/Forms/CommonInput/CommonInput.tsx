@@ -10,6 +10,7 @@ type Props = {
     placeholder: string,
     value: string,
     onValueChange: (value: any)=>void,
+    onBlur?: () => void,
     editable?: boolean,
     keyboard?: KeyboardTypeOptions,
     leftIcon?: ReactNode,
@@ -21,6 +22,7 @@ const CommonInput: FC<Props> = ({
     placeholder,
     value,
     onValueChange,
+    onBlur,
     editable=true,
     keyboard='default',
     leftIcon,
@@ -38,6 +40,7 @@ const CommonInput: FC<Props> = ({
             editable={editable}
             value={value}
             onChangeText={onValueChange}
+            onBlur={onBlur}
             keyboardType={keyboard}
             left={leftIcon}
             secureTextEntry={secureText}
