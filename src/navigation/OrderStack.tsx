@@ -1,21 +1,15 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { View } from "react-native";
-import { Text } from "react-native-paper";
+import OrderListScreen from "../screens/OrderListScreen/OrderListScreen";
 
-function OderScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Oder Screen</Text>
-    </View>
-  );
-}
-
+export type OrderStackParamList = {
+  OrderListScreen: undefined;
+};
+const Stack = createStackNavigator<OrderStackParamList>();
 const OderStack = () => {
-  const Stack = createStackNavigator();
   return (
     <Stack.Navigator screenOptions={{ headerShown : false, animationEnabled : false }}>
-      <Stack.Screen name="OderScreen" component={OderScreen} />
+      <Stack.Screen name="OrderListScreen" component={OrderListScreen} />
     </Stack.Navigator>
   );
 };

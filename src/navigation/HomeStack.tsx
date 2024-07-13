@@ -9,7 +9,7 @@ export type HomeStackParamList = {
   NotificationScreen: undefined;
   PricingScreen: undefined;
 };
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<HomeStackParamList>();
 const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown : false, animationEnabled : true }}>
