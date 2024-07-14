@@ -1,4 +1,4 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import SafeArea from '../../components/SafeArea/SafeArea'
 import { Button, useTheme } from 'react-native-paper'
@@ -15,31 +15,36 @@ const MainScreen = (props: Props) => {
     const navigation = useNavigation<NavigationProp<AppStackParamList>>();
     return (
         <SafeArea>
-            <Image style={styles.logo} source={require('../../assets/icons/logo.png')} />
-            <View style={styles.shopIconWrapper}>
-                <Image style={styles.shopIcon} source={require('../../assets/images/shop.png')} />
+            <ScrollView>
+            <View style={styles.container}>
+
             </View>
-            <View style={styles.content}>
-                <Text style={styles.title}>Try Shopify for free</Text>
-                <Text style={styles.subTitle}>The commerce palform trusted by millions of business worldwide</Text>
-            </View>
-            <View style={styles.promo}>
-                <View style={styles.promoItemWarpper}>
-                    <MaterialCommunityIcons name="shopping" color={theme.colors.primary} size={scaleWidth(24)} />
-                    <Text style={styles.promoText}>Online and in-person sales</Text>
+                <Image style={styles.logo} source={require('../../assets/icons/logo.png')} />
+                <View style={styles.shopIconWrapper}>
+                    <Image style={styles.shopIcon} source={require('../../assets/images/shop.png')} />
                 </View>
-                <View style={styles.promoItemWarpper}>
-                    <MaterialCommunityIcons name="bullseye-arrow" color={theme.colors.primary} size={scaleWidth(24)} />
-                    <Text style={styles.promoText}>Fast , reliable and checkout</Text>
+                <View style={styles.content}>
+                    <Text style={styles.title}>Try Shopify for free</Text>
+                    <Text style={styles.subTitle}>The commerce palform trusted by millions of business worldwide</Text>
                 </View>
-                <View style={styles.promoItemWarpper}>
-                    <MaterialCommunityIcons name="text-box-check" color={theme.colors.primary} size={scaleWidth(24)} />
-                    <Text style={styles.promoText}>Powerfull order management</Text>
+                <View style={styles.promo}>
+                    <View style={styles.promoItemWarpper}>
+                        <MaterialCommunityIcons name="shopping" color={theme.colors.primary} size={scaleWidth(24)} />
+                        <Text style={styles.promoText}>Online and in-person sales</Text>
+                    </View>
+                    <View style={styles.promoItemWarpper}>
+                        <MaterialCommunityIcons name="bullseye-arrow" color={theme.colors.primary} size={scaleWidth(24)} />
+                        <Text style={styles.promoText}>Fast , reliable and checkout</Text>
+                    </View>
+                    <View style={styles.promoItemWarpper}>
+                        <MaterialCommunityIcons name="text-box-check" color={theme.colors.primary} size={scaleWidth(24)} />
+                        <Text style={styles.promoText}>Powerfull order management</Text>
+                    </View>
                 </View>
-            </View>
-            <Button style={styles.btnStyle} mode="contained" onPress={() => navigation.navigate('LoginScreen')}>
-                Get Started
-            </Button>
+                <Button style={styles.btnStyle} mode="contained" onPress={() => navigation.navigate('LoginScreen')}>
+                    Get Started
+                </Button>
+            </ScrollView>
         </SafeArea>
     )
 }
@@ -47,6 +52,12 @@ const MainScreen = (props: Props) => {
 export default MainScreen
 
 const useThemeStyle = (theme: any) => StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingHorizontal: scaleWidth(10),
+        marginBottom: scaleHeight(30),
+        paddingTop: scaleHeight(10)
+    },
     logo: {
         width: scaleWidth(120),
         height: scaleWidth(50),
@@ -97,6 +108,6 @@ const useThemeStyle = (theme: any) => StyleSheet.create({
         marginHorizontal: scaleWidth(22),
         borderRadius: scaleWidth(10),
         height: scaleHeight(35),
-        justifyContent: 'center'
+        justifyContent: 'center',
     }
 })
