@@ -40,9 +40,6 @@ const MainScreen = (props: Props) => {
             <Button style={styles.btnStyle} mode="contained" onPress={() => navigation.navigate('LoginScreen')}>
                 Get Started
             </Button>
-            <Button style={{...styles.btnStyle,marginTop: scaleHeight(10)}} mode="outlined" onPress={() => console.log('Pressed')}>
-                Register
-            </Button>
         </SafeArea>
     )
 }

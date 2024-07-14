@@ -11,6 +11,7 @@ import { supabase } from '../../../supabase'
 import { useDispatch, useSelector } from 'react-redux'
 import { setAppLoading } from '../../redux/reducers/appState'
 import { RootState } from '../../redux'
+import { setAuthToken, setUserInfo } from '../../redux/reducers/userState'
 
 
 type LoginFormData = {
@@ -21,7 +22,7 @@ type Props = {}
 const LoginScreen = (props: Props) => {
     const theme = useTheme();
     const styles = useThemeStyle(theme);
-    const {appLoading} = useSelector((state:RootState) => state.app);;
+    const {appLoading} = useSelector((state:RootState) => state.app);
 
     const dispatch = useDispatch();
     const navigation = useNavigation<NavigationProp<AppStackParamList>>();
@@ -40,9 +41,10 @@ const LoginScreen = (props: Props) => {
             password: data?.password,
         })
         dispatch(setAppLoading(false));
-        console.log(response)
         if (response?.error) Alert.alert(response?.error.message)
         if(!response?.error) {
+            dispatch(setAuthToken(response?.data?.session?.access_token));
+            dispatch(setUserInfo(response?.data?.user));
             navigation.navigate('App')
         }
     }

@@ -2,6 +2,7 @@ import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { FC, memo } from 'react'
 import { Card, useTheme } from 'react-native-paper'
 import { scaleWidth } from '../../utils/responsive'
+import { Product } from '../../../supabaseHelper'
 
 export type ProductType = {
     id: number | string,
@@ -12,7 +13,7 @@ export type ProductType = {
     images: string[]
 }
 type Props = {
-    product: ProductType,
+    product: Product,
     onPress?: () => void
 }
 
@@ -23,10 +24,10 @@ const ProductListItem:FC<Props> = ({product, onPress}) => {
             <Pressable onPress={onPress}>
                 <Card style={styles.productCard}>
                     <View style={styles.productRow}>
-                        <Image style={styles.img} source={product?.images?.length ? {uri: product?.images[0]} : require('../../assets/images/shop.png')} />
+                        <Image style={styles.img} source={product?.img_url ? {uri: product?.img_url} : require('../../assets/images/shop.png')} />
                         <View style={styles.productInfoWrapper}>
                             <Text style={styles.title}>{product?.title}</Text>
-                            <Text style={styles.subTitle}>{`CategoryId-${product?.category_id} /  $ ${product?.price} / Stock-${product?.stock}`}</Text>
+                            <Text style={styles.subTitle}>{`Category - ${product?.category} /  $ ${product?.price} / Units - ${product?.stock}`}</Text>
                         </View>
                     </View>
                 </Card>
