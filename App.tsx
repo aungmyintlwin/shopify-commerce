@@ -10,6 +10,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppFollow from './src/navigation/index'
 import MainScreen from './src/screens/MainScreen/MainScreen';
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 const theme = {
   ...DefaultTheme,
@@ -31,12 +34,14 @@ const App = () => {
       <PaperProvider theme={theme}>
         <Provider store={store}>
         <NavigationContainer >
-        <Stack.Navigator initialRouteName='MainScreen' screenOptions={{ headerShown : false}}>
-          <Stack.Screen name="MainScreen" component={MainScreen} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="App" component={AppFollow} />
-        </Stack.Navigator>
-        </NavigationContainer>
+          <QueryClientProvider client={queryClient}>
+            <Stack.Navigator initialRouteName='MainScreen' screenOptions={{ headerShown : false}}>
+              <Stack.Screen name="MainScreen" component={MainScreen} />
+              <Stack.Screen name="LoginScreen" component={LoginScreen} />
+              <Stack.Screen name="App" component={AppFollow} />
+            </Stack.Navigator>
+          </QueryClientProvider>
+          </NavigationContainer>
         </Provider>
       </PaperProvider>
     </GestureHandlerRootView>

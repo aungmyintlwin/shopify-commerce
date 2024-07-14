@@ -17,7 +17,7 @@ const SettingScreen = (props: Props) => {
         <>
             <Header leftIcon='arrow-left' showLeftIcon={false} showRightIcon={false} title={"Setting"}/>
             <View style={styles.container}>
-                <TouchableOpacity style={styles.rowItem}>
+                <TouchableOpacity style={styles.rowItem} onPress={() => navigation.navigate('CustomerListScreen')}>
                     <MaterialCommunityIcons name="account" color={theme.colors.secondary} size={scaleWidth(28)} />
                     <Text style={styles.title}>Coustomers</Text>
                 </TouchableOpacity>

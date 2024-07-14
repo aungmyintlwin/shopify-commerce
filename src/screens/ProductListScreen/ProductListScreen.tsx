@@ -1,6 +1,6 @@
 import { FlatList, Pressable, RefreshControl, StyleSheet, Text, View } from 'react-native'
 import React, { memo, useEffect, useState } from 'react'
-import { Button, Card, useTheme } from 'react-native-paper'
+import { Card, useTheme } from 'react-native-paper'
 import { scaleHeight, scaleWidth } from '../../utils/responsive'
 import { NavigationProp, useNavigation } from '@react-navigation/native'
 import Header from '../../components/Header/Header'
@@ -44,7 +44,7 @@ const ProductListScreen = (props: Props) => {
     useEffect(() => {
         //@ts-ignore
         if(authUser && authUser?.id) listProducts(authUser?.id);
-    },[])
+    },[navigation])
     const onRefresh = async() => {
         setRefreshing(true)
         filterPress();
@@ -54,11 +54,11 @@ const ProductListScreen = (props: Props) => {
     return (
         <>
             <Header showLeftIcon={false} title={"Product List"} rightIconPress={() => navigation.navigate('CreateProductScreen')}/>
-            {!products && <NoProductList addNewProdcut={() => navigation.navigate('CreateProductScreen')} />}
+            {products.length === 0 && <NoProductList addNewProdcut={() => navigation.navigate('CreateProductScreen')} />}
 
 
             {
-                products && <View style={styles.list}>
+                products && products.length > 0 && <View style={styles.list}>
                     <View style={styles.sortWrapper}>
                         <Pressable onPress={() => {
                             setActiveSelect('all')

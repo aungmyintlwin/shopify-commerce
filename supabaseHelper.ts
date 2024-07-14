@@ -68,3 +68,13 @@ export const getAllCategories = async() => {
         return [];
     }
 }
+export const getAllCustomers = async() => {
+    const { data, error } = await supabase.from('customers').select();
+    if(data && data.length) {
+        return data;
+    }
+    if(error) {
+        console.log(error.message)
+        return [];
+    }
+}
